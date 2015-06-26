@@ -285,4 +285,57 @@ public class P11 {
 		
 		return dynamic[n];
 	}
+	public static void swap(int[] arr, int i, int j){
+		int aux = arr[i];
+		arr[i] = arr[j];
+		arr[j] = aux;
+	}
+	public static void arrangeArray(int[] arr) {
+		if (arr.length<2) return;
+		int lastOne = 0;
+		
+		for (int i = 1;i < arr.length;i++){
+			if(arr[i] - arr[i-1] == 1){
+				lastOne = i;
+			}
+			else if(arr[i] - arr[i-1] == -1){
+				swap(arr,lastOne,i);
+				lastOne++;
+			}
+		}
+	}
+	public static void threeBuckets(int[] arr,int index) {
+		int value = arr[index];
+		int smallerCount = 0;
+
+		for (int i = 0;i < arr.length;i++){
+			if(arr[i] < value) smallerCount++;
+		
+		}
+		int leftIndex = 0;
+		int middleIndex = smallerCount;
+		
+		for(int i = 0; i<arr.length;i++){
+			if (arr[i] < value){
+				swap(arr,i,leftIndex++);
+			}
+		}
+		for(int i = middleIndex;i<arr.length;i++){
+			if(arr[i] == value){
+				swap(arr,i,middleIndex++);
+			}
+		}
+	}
+	public static int integerDivision(int dividend, int divisor){
+		int quotient = 0;
+		
+		while(dividend >= (divisor + divisor)){
+			quotient += 2;
+			dividend = dividend - (divisor + divisor);
+		}
+		if(dividend >= divisor){
+			quotient++;
+		}
+		return quotient;
+	}
 }
