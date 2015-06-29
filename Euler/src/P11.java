@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -337,5 +338,39 @@ public class P11 {
 			quotient++;
 		}
 		return quotient;
+	}
+	public static Character firstNonRepeated(String str){
+		if (str == null || str.length() == 0) return null;
+		if(str.length() < 2) return str.charAt(0);
+		
+		HashMap<Character,Integer> countMap = new HashMap<Character,Integer>();
+		
+		for( int i = 0; i < str.length(); i++){
+			if(countMap.containsKey(str.charAt(i))){
+				countMap.put(str.charAt(i), -1);
+			}
+			else{
+				countMap.put(str.charAt(i), 1);
+			}
+		}
+		for(int j = 0; j<str.length();j++){
+			if(countMap.get(str.charAt(j)) == 1){
+				return str.charAt(j);
+			}
+		}
+		return null;
+	}
+	public static String removeChars(String str, String remove){
+		HashSet<Character> removeChars = new HashSet<Character>();
+		for(int i = 0; i < remove.length(); i++){
+			removeChars.add(remove.charAt(i));
+		}
+		StringBuilder builder = new StringBuilder();
+		for(int j = 0; j < str.length();j++){
+			if(!removeChars.contains(str.charAt(j))){
+				builder.append(str.charAt(j));
+			}
+		}
+		return builder.toString();
 	}
 }

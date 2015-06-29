@@ -18,7 +18,12 @@ public class MyHeap {
 	public boolean isEmpty(){
 		return lastElement == -1;
 	}
+	public boolean isFull(){
+		return lastElement == heapArray.length - 1;
+	}
 	public void insert(int value){
+		if (isFull()) return;
+		
 		int index = ++lastElement;
 		int parentIndex = (index-1)/2;
 		heapArray[index] = value;
@@ -49,8 +54,6 @@ public class MyHeap {
 		if(isMin){
 			while((2*index +2 <= lastElement) && 
 					(heapArray[index] > heapArray[2*index + 1]||heapArray[index] > heapArray[2*index + 2])){
-				int value1 =heapArray[2*index + 1] ;
-				int value2 = heapArray[2*index + 2];
 				if(heapArray[2*index + 1] < heapArray[2*index + 2]){
 					swapValues(index,2*index+1);
 					index = 2*index+1;

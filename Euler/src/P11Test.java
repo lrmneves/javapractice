@@ -396,5 +396,29 @@ public class P11Test {
 			assertEquals(maxHeap.extract(),i);
 		}
 	}
+	@Test
+	public void nonRepeatedTest(){
+		String test1 =  "a";
+		String test2 = "total";
+		String test3 = "teeter";
+		
+		assertEquals(P11.firstNonRepeated(test1), (Character) 'a');
+		assertEquals(P11.firstNonRepeated(test2), (Character) 'o');
+		assertEquals(P11.firstNonRepeated(test3), (Character) 'r');
+
+	}
+	
+	@Test
+	public void removeCharsTest(){
+		String test1 =  "a";
+		String test2 = "total";
+		String test3 = "teeter";
+		
+		assertEquals(P11.removeChars(test1,"a"), "");
+		assertEquals(P11.removeChars(test2,"ao"), "ttl");
+		assertEquals(P11.removeChars(test3,"er"), "tt");
+
+
+	}
 
 }

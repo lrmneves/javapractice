@@ -14,6 +14,7 @@ public class BinaryTree<T>{
 	public boolean isBalanced(){
 		return head.isBalanced() != -1;
 	}
+	
 
 }
 
