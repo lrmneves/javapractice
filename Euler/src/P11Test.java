@@ -2,6 +2,8 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Stack;
+
 import utils.*;
 
 import org.junit.Test;
@@ -464,6 +466,84 @@ public class P11Test {
 		}
 		for(int i = 0; i < levelThree.length; i++){
 			assertEquals((int)ret.get(2).get(i),levelThree[i] );
+		}
+	}
+	@Test
+	public void partitionListTest(){
+		LinkedListNode<Integer> first = new LinkedListNode<Integer>(4);
+		LinkedListNode<Integer> second = new LinkedListNode<Integer>(7);
+		LinkedListNode<Integer> third = new LinkedListNode<Integer>(9);
+		LinkedListNode<Integer> fourth = new LinkedListNode<Integer>(5);
+		LinkedListNode<Integer> fifth = new LinkedListNode<Integer>(10);
+		LinkedListNode<Integer> sixth = new LinkedListNode<Integer>(3);
+
+		MyLinkedList<Integer> list = new MyLinkedList<Integer>(first);
+
+		list.appendNode(second);
+		list.appendNode(third);
+		list.appendNode(fourth);
+		list.appendNode(fifth);	
+		list.appendNode(sixth);
+		
+		P11.partitionList(list,6);
+		
+		int[] arr = new int []{4,5,3,10,9,7};
+ 		
+		assertEquals(6,list.getSize());
+		LinkedListNode<Integer> current = list.getHead();
+		int i = 0;
+		while (current != null){
+			assertEquals(current.getValue(),new Integer(arr[i++]));
+			current = current.getNext();
+		}
+		
+	}
+	@Test
+	public void HanoiTowerTest(){
+		Stack<Integer> s1 = new Stack<>();
+		Stack<Integer> s2 = new Stack<>();
+		Stack<Integer> s3 = new Stack<>();
+		
+		s1.add(4);
+		s1.add(3);
+		s1.add(2);
+		s1.add(1);
+		s1.add(0);
+		
+		P11.hanoiTower(s1, s2, s3);
+		
+		assertEquals(s3.size(),5);
+		
+		for(int i = 0; i < 5;i++){
+			assertEquals((int) s3.pop(),i);
+		}
+	}
+	
+	@Test
+	public void isPermutationTest(){
+		String s1 = "banana";
+		String s2 = "1";
+		String s3 = "nanaba";
+		String s4 = "banany";
+		
+		assertFalse(P11.isPermutation(s1,s2));
+		assertTrue(P11.isPermutation(s1, s3));
+		assertFalse(P11.isPermutation(s1, s4));
+	}
+	@Test
+	public void rotateMatrixTest(){
+		int n = 4;
+		
+		int[][] matrix = new int[n][n];
+		
+		for (int i = 0; i < n;i++){
+			String s = "[";
+			for(int j = 0; j <n ; j++){
+				matrix[i][j]= i+j;
+				s = s + (i+j)+ " ";
+			}
+			s += "]";
+			System.out.println(s);
 		}
 	}
 

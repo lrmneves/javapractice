@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 import utils.*;
 
@@ -415,6 +416,91 @@ public class P11 {
 		
 		createBinaryTreeWorker((isRight?node.getRight():node.getLeft()),arr,start,middle-1,false);
 		createBinaryTreeWorker((isRight?node.getRight():node.getLeft()),arr,middle+1,end,true);
+	}
+	public static void partitionList(MyLinkedList<Integer> list, int value) {
+		if (list.getSize() < 1) return;
+		
+		LinkedListNode<Integer> current = list.getHead();
+		LinkedListNode<Integer> firstHalf = null;
+		LinkedListNode<Integer> secondHalf = null;
+		LinkedListNode<Integer> aux;
+		
+		while(current != null){
+			if (current.getValue() < value){
+				if(firstHalf == null) {
+					firstHalf = current;
+					list.setHead(firstHalf);
+				}
+				else{
+					firstHalf.setNext(current);
+					firstHalf = current;
+				}
+				current = current.getNext();
+
+			}
+			else{
+				if(secondHalf == null){
+					secondHalf = current;
+					current = current.getNext();
+					secondHalf.setNext(null);
+				}
+				else{
+					aux = current.getNext();
+					current.setNext(secondHalf);
+					secondHalf = current;
+					current = aux;
+				}
+				if(firstHalf == null) list.setHead(secondHalf);
+			}
+
+		}
+		if(firstHalf != null) firstHalf.setNext(secondHalf);
+	}
+	public static void hanoiTower(Stack<Integer> s1, Stack<Integer> s2, Stack<Integer> s3){
+		hanoiWorker(s1.size(),s1,s2,s3);
+	}
+	private static void hanoiWorker(int n, Stack<Integer> beg, Stack<Integer> aux, Stack<Integer> end){
+		if(n == 1){
+			end.add(beg.pop());
+		}
+		else{
+			hanoiWorker(n-1,beg,end,aux);
+			hanoiWorker(1,beg,aux,end);
+			hanoiWorker(n-1,aux,beg,end);
+		}
+	}
+	
+	public static boolean isPermutation(String s1, String s2){
+		if(s1.length() != s2.length() || s1.length() == 0 || s2.length() == 0) return false;
+		
+		int [] timesSeen = new int[256];
+		
+		for (int i = 0; i < s1.length();i++){
+			timesSeen[s1.charAt(i)]++;
+		}
+		for(int j = 0; j < s2.length();j++){
+			timesSeen[s2.charAt(j)]--;
+			if(timesSeen[s2.charAt(j)] < 0) return false;
+		}
+		return true;	
+	}
+	public void rotateMatrix(int [][] matrix){
+		
+		for(int i = 0; i < matrix.length/2;i++){
+			for(int j = 0; j < matrix.length/2;j++){
+				
+				
+				
+				
+			}
+		}
+		
+	}
+	
+	public void swap2d(int[][]arr, int i0 , int j0, int i1, int j1 ){
+		int aux = arr[i0][j0];
+		arr[i0][j0] = arr[i1][j1];
+		arr[i1][j1] = aux;
 	}
 	
 	
