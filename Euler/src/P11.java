@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -373,4 +375,47 @@ public class P11 {
 		}
 		return builder.toString();
 	}
+	public static boolean hasUniqueChars(String str){
+		if(str.length() <2) return true;
+		BitSet bitset = new BitSet(256);
+		
+		for(int i = 0; i<str.length(); i++){
+			if(bitset.get(str.charAt(i))) return false;
+			bitset.set(str.charAt(i));
+		}
+		return true;
+	}
+	public static void removeDuplicates(LinkedList<Integer> list){
+		if(list.size() <2) return;
+		HashSet<Integer> seen = new HashSet<>();
+		Iterator<Integer> it = list.iterator();
+		seen.add(it.next());
+		int currentValue;
+		while(it.hasNext()){
+			currentValue = it.next();
+			if(seen.contains(currentValue)) it.remove();
+			else seen.add(currentValue);
+		}
+	}
+	public static BinaryTree<Integer> createBinarySearchTree(int [] sortedArr){
+		 if(sortedArr.length == 0) return null;
+		 int middle = sortedArr.length/2;
+		 BinaryTree<Integer> tree = new BinaryTree<>(new BinaryTreeNode<Integer>(sortedArr[middle]));
+		 //calculate left tree
+		 createBinaryTreeWorker(tree.getHead(),sortedArr,0,middle-1,false);
+		 createBinaryTreeWorker(tree.getHead(),sortedArr,middle+1,sortedArr.length-1,true);
+		 return tree;
+	}
+	
+	private static void createBinaryTreeWorker(BinaryTreeNode<Integer> node, int [] arr, int start, int end,boolean isRight){
+		if( start >end) return;
+		int middle = (start + end)/2;
+		if (isRight) node.setRight(new BinaryTreeNode<Integer>(arr[middle]));
+		else node.setLeft(new BinaryTreeNode<Integer>(arr[middle]));
+		
+		createBinaryTreeWorker((isRight?node.getRight():node.getLeft()),arr,start,middle-1,false);
+		createBinaryTreeWorker((isRight?node.getRight():node.getLeft()),arr,middle+1,end,true);
+	}
+	
+	
 }

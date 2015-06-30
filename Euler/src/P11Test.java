@@ -418,7 +418,53 @@ public class P11Test {
 		assertEquals(P11.removeChars(test2,"ao"), "ttl");
 		assertEquals(P11.removeChars(test3,"er"), "tt");
 
+	}
+	@Test
+	public void hasUniqueCharsTest(){
+		String test1 = "";
+		String test2 = "abc";
+		String test3 = "abcdertfsa";
+		
+		assertTrue(P11.hasUniqueChars(test1));
+		assertTrue(P11.hasUniqueChars(test2));
+		assertFalse(P11.hasUniqueChars(test3));
+	}
+	@Test
+	public void removeDuplicatesTest(){
+		LinkedList<Integer> list = new LinkedList<>();
+		list.add(1);
+		list.add(1);
+		list.add(4);
+		list.add(2);
+		list.add(3);
+		list.add(4);
+		
+		P11.removeDuplicates(list);
+		
+		Integer [] arr = new Integer[] {1,4,2,3};
+		
+		for(int i = 0; i<list.size();i++){
+			assertEquals(arr[i],list.get(i));
+		}
+	}
+	@Test
+	public void createBinarySearchTreeTest(){
+		int [] arr = new int [] {1,2,3,4,5,6,7};
+		BinaryTree<Integer> tree = P11.createBinarySearchTree(arr);
+		ArrayList<ArrayList<Integer>> ret = P11.levelOrderTransversal(tree.getHead());
+		int [] levelOne = new int[] {4};
+		int [] levelTwo = new int[] {2,6};
+		int [] levelThree = new int[] {1,3,5,7};
 
+		for(int i = 0; i < levelOne.length; i++){
+			assertEquals((int)ret.get(0).get(i),levelOne[i] );
+		}
+		for(int i = 0; i < levelTwo.length; i++){
+			assertEquals((int)ret.get(1).get(i),levelTwo[i] );
+		}
+		for(int i = 0; i < levelThree.length; i++){
+			assertEquals((int)ret.get(2).get(i),levelThree[i] );
+		}
 	}
 
 }
