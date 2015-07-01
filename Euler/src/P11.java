@@ -507,6 +507,7 @@ public class P11 {
 	public static void setToZero(int[][] matrix){
 		int n = matrix.length;
 		int m = matrix[0].length;
+		
 		BitSet rowBitSet = new BitSet(n);
 		BitSet columnBitSet = new BitSet(m);
 
@@ -560,6 +561,74 @@ public class P11 {
 
 		return isSubstring(s1+s1,s2);
 
+	}
+	
+	public static boolean isListPalindrome(LinkedList<Character> list){
+		
+		Iterator<Character> it = list.iterator();
+		Stack<Character> stack = new Stack<>();
+		int size = 0;
+		while(it.hasNext()){
+			stack.push(it.next());
+			size++;
+		}
+		
+		it = list.iterator();
+		
+		for(int i = 0; i < size/2 ; i++){
+			char c1 = stack.pop();
+			char c2 = it.next();
+			if(c1 != c2) return false;
+		}
+		return true;
+		
+	}
+	public static void sortStack(Stack<Integer> stack){
+		if(stack.isEmpty()) return;
+		
+		Stack<Integer> auxStack = new Stack<>();
+		int largest = stack.pop();
+		int size = 1;
+		
+		while(!stack.isEmpty()){
+			int value = stack.pop();
+			if(value > largest){
+				auxStack.push(largest);
+				largest = value;
+			}
+			else{
+				auxStack.push(value);
+			}
+			size++;
+		}
+		while(!auxStack.isEmpty()){
+			stack.push(auxStack.pop());
+		}
+		auxStack.push(largest);
+		
+		largest = stack.pop();
+		
+		for(int i = 1 ; i < size-1; i++){
+			while(!stack.isEmpty()){
+				int value = stack.pop();
+				if(value > largest){
+					auxStack.push(largest);
+					largest = value;
+				}
+				else{
+					auxStack.push(value);
+				}
+			}
+			for(int j = 0; j < size - i -1; j++){
+				stack.push(auxStack.pop());
+			}
+			auxStack.push(largest);
+			largest = stack.pop();
+		}
+		stack.push(largest);
+		while(!auxStack.isEmpty()){
+			stack.push(auxStack.pop());
+		}
 	}
 
 }

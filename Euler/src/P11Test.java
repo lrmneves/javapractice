@@ -598,5 +598,45 @@ public class P11Test {
 				+ "[0 3 4 5]\n";
 		assertEquals(P11.printMatrix(matrix, n, m),zeroMatrix);
 	}
+	@Test
+	public void isListPalindromeTest(){
+		LinkedList<Character> list = new LinkedList<>();
+		list.add('a');
+		list.add('r');
+		list.add('a');
+		list.add('r');
+		list.add('a');
+
+		assertTrue(P11.isListPalindrome(list));
+		LinkedList<Character> list2 = new LinkedList<>();
+		
+		list2.add('b');
+		list2.add('a');
+		list2.add('n');
+		list2.add('a');
+		list2.add('n');
+		list2.add('a');
+		
+		assertFalse(P11.isListPalindrome(list2));
+	}
+	
+	@Test
+	public void sortStackTest(){
+		Stack<Integer> stack = new Stack<>();
+		stack.push(7);
+		stack.push(2);
+		stack.push(5);
+		stack.push(1);
+		stack.push(6);
+		
+		int [] arr = new int[]{7,6,5,2,1};
+		
+		P11.sortStack(stack);
+		assertEquals(stack.size(),5);
+		
+		for(int i = 0; i < arr.length; i++){
+			assertEquals(arr[i],(int) stack.pop());
+		}
+	}
 
 }
