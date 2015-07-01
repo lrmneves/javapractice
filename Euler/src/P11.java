@@ -11,21 +11,21 @@ import java.util.Stack;
 import utils.*;
 
 public class P11 {
-	
+
 	public static void main(String args[]){
-	
+
 	}
 	//O(n)
 	public static int[] twoSum(int [] arr, int value){
 		if (arr.length<2) return null;
 		int [] ret = new int[2];
-		
+
 		HashMap<Integer,Integer> numberMap = new HashMap<Integer,Integer>();
-		
+
 		for (int i = 0; i < arr.length; i++){
 			numberMap.put(arr[i],i);//O(n)
 		}
-		
+
 		for(int j = 0; j< arr.length; j++){//O(n)
 			if(numberMap.containsKey(value - arr[j])){
 				ret[0] = j;
@@ -34,7 +34,7 @@ public class P11 {
 				return ret;
 			}
 		}
-		
+
 		return null;
 	}
 	//O(n^2)
@@ -50,7 +50,7 @@ public class P11 {
 			head = i+1;
 			tail = arr.length-1;
 
-			
+
 			while(head < tail){//O(n)
 				sum = arr[head] + arr[i] + arr[tail];
 				if(sum == value){
@@ -68,12 +68,12 @@ public class P11 {
 				}
 			}
 			while (i < arr.length - 1 && arr[i] == arr[i+1] ) i++;
-			
+
 		}
-		
+
 		return ret;
 	}
-	
+
 	public static int closestTripleSum(int[] arr, int value){
 		if (arr.length < 3) return 0;
 		Arrays.sort(arr);//O(nlog(n))
@@ -82,13 +82,13 @@ public class P11 {
 		int head;
 		int tail;
 		int closestSum = Integer.MAX_VALUE;
-		
+
 		for(int i = 0; i < arr.length; i++){//O(n)
 
 			head = i+1;
 			tail = arr.length-1;
 
-			
+
 			while(head < tail){//O(n)
 				sum = arr[head] + arr[i] + arr[tail];
 				if (sum == value) return sum;
@@ -105,40 +105,40 @@ public class P11 {
 			}
 		}
 		return closestSum;
-		
+
 	}
-//	public static String sumBinary(String bin1, String bin2){
-////		
-//	}
+	//	public static String sumBinary(String bin1, String bin2){
+	////		
+	//	}
 	public static LinkedList<Integer> addTwoNumbers(LinkedList<Integer> l1, LinkedList<Integer> l2){
-		
+
 		LinkedList<Integer> ret = new LinkedList<Integer>();
-		
+
 		int n1 = l1.peek() != null ? l1.poll(): 0;
 		int n2 = l2.peek() !=null ? l2.poll(): 0;
-		
+
 		int carry = 0;
-		
+
 		while (l1.peek() != null|| l2.peek()!=null){
 			ret.add((n1+n2+carry)%10);
 			carry = (n1+n2+carry)/10;
 			n1 = l1.peek() != null? l1.poll(): 0;
 			n2 = l2.peek() != null? l2.poll(): 0;
 		}
-		
+
 		if(carry > 0){
 			ret.add(carry+n1+n2);
 		}
 		return ret;
-			
+
 	}
 	public static ArrayList<ArrayList<String>> findAnagrams(ArrayList<String> strings){
 		if (strings.size() < 2) return null;
 		ArrayList<ArrayList<String>> ret = new ArrayList<ArrayList<String>>();
-		
+
 		HashMap<Integer,ArrayList<String>> anagramMap = new HashMap<Integer,ArrayList<String>>();
 		int stringValue;
-		
+
 		for(String s : strings){
 			if(s.length() > 0){
 				stringValue = 0;
@@ -155,7 +155,7 @@ public class P11 {
 				}
 			}
 		}
-		
+
 		for(int key : anagramMap.keySet()){
 			if(anagramMap.get(key).size() > 1){
 				ret.add(anagramMap.get(key));
@@ -167,7 +167,7 @@ public class P11 {
 	public static int bestStock(int[] arr) {
 		int maxProfit = 0;
 		int minValue = Integer.MAX_VALUE;
-		
+
 		for(int price : arr){
 			if (price < minValue){
 				minValue = price;
@@ -176,42 +176,42 @@ public class P11 {
 				maxProfit = price - minValue;
 			}
 		}
-		
+
 		return maxProfit;
 	}
 	//O(n)
 	public static int bestStock2(int[] arr) {
 		int maxProfit = 0;
 		int lastValue = Integer.MAX_VALUE;
-		
+
 		for(int price : arr){
 			if (price - lastValue > 0){
 				maxProfit = maxProfit + (price - lastValue);
 			}
 			lastValue = price;
 		}
-		
+
 		return maxProfit;
 	}
-//	public static int bestStock3(int[] arr){
-//		int maxProfit = 0;
-//		int lastValue = Integer.MAX_VALUE;
-//		
-//		
-//		
-//		return maxProfit;
-//	}
+	//	public static int bestStock3(int[] arr){
+	//		int maxProfit = 0;
+	//		int lastValue = Integer.MAX_VALUE;
+	//		
+	//		
+	//		
+	//		return maxProfit;
+	//	}
 	public static boolean isBalanced(BinaryTree<Integer> tree){
 		return tree.isBalanced();
 	}
-	
+
 	public static ArrayList<Integer> inOrderTransversal(BinaryTreeNode<Integer> binaryTreeNode){
 		if (binaryTreeNode == null) return null;
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		if(binaryTreeNode.getLeft() != null) result.addAll(inOrderTransversal(binaryTreeNode.getLeft()));
 		result.add((int)binaryTreeNode.getValue());
 		if(binaryTreeNode.getRight() != null) result.addAll(inOrderTransversal(binaryTreeNode.getRight()));
-		
+
 		return result;
 	}
 	public static ArrayList<Integer> preOrderTransversal(BinaryTreeNode<Integer> head){
@@ -220,7 +220,7 @@ public class P11 {
 		result.add((int)head.getValue());
 		if(head.getLeft() != null) result.addAll(inOrderTransversal(head.getLeft()));
 		if(head.getRight() != null) result.addAll(inOrderTransversal(head.getRight()));
-		
+
 		return result;
 	}
 	public static ArrayList<Integer> postOrderTransversal(BinaryTreeNode<Integer> head){
@@ -235,19 +235,19 @@ public class P11 {
 	}
 	public static ArrayList<ArrayList<Integer>> levelOrderTransversal(BinaryTreeNode<Integer> head){
 		Queue<BinaryTreeNode<Integer>> queue = new LinkedList<BinaryTreeNode<Integer>>();
-		
+
 		queue.add(head);
 		ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
-		
+
 		ArrayList<Integer> layer = new ArrayList<Integer>();
-		
+
 		int currentLevel = 1;
 		int nextLevel = 0;
 		int visited = 0;
-		
+
 		BinaryTreeNode<Integer> current;
-		
-		
+
+
 		while (!queue.isEmpty()){
 			current = queue.poll();
 			visited++;
@@ -267,14 +267,14 @@ public class P11 {
 				visited = 0;
 				nextLevel = 0;
 			}
-			
+
 		}
-		
+
 		return ret;
-		
+
 	}
 	public static void reverseList(LinkedList<Integer> list){
-		
+
 	}
 	public static long  climbLadder(int n){
 		return climbLadderAux(n,new long[n+1]);
@@ -284,9 +284,9 @@ public class P11 {
 		if(n <= 2) return n;
 		long a = (dynamic[n-1] != 0? dynamic[n-1]:climbLadderAux(n-1,dynamic));
 		long b = (dynamic[n-2] != 0? dynamic[n-2]:climbLadderAux(n-2,dynamic));
-		
+
 		dynamic[n] = a+b;
-		
+
 		return dynamic[n];
 	}
 	public static void swap(int[] arr, int i, int j){
@@ -297,7 +297,7 @@ public class P11 {
 	public static void arrangeArray(int[] arr) {
 		if (arr.length<2) return;
 		int lastOne = 0;
-		
+
 		for (int i = 1;i < arr.length;i++){
 			if(arr[i] - arr[i-1] == 1){
 				lastOne = i;
@@ -314,11 +314,11 @@ public class P11 {
 
 		for (int i = 0;i < arr.length;i++){
 			if(arr[i] < value) smallerCount++;
-		
+
 		}
 		int leftIndex = 0;
 		int middleIndex = smallerCount;
-		
+
 		for(int i = 0; i<arr.length;i++){
 			if (arr[i] < value){
 				swap(arr,i,leftIndex++);
@@ -332,7 +332,7 @@ public class P11 {
 	}
 	public static int integerDivision(int dividend, int divisor){
 		int quotient = 0;
-		
+
 		while(dividend >= (divisor + divisor)){
 			quotient += 2;
 			dividend = dividend - (divisor + divisor);
@@ -345,9 +345,9 @@ public class P11 {
 	public static Character firstNonRepeated(String str){
 		if (str == null || str.length() == 0) return null;
 		if(str.length() < 2) return str.charAt(0);
-		
+
 		HashMap<Character,Integer> countMap = new HashMap<Character,Integer>();
-		
+
 		for( int i = 0; i < str.length(); i++){
 			if(countMap.containsKey(str.charAt(i))){
 				countMap.put(str.charAt(i), -1);
@@ -379,7 +379,7 @@ public class P11 {
 	public static boolean hasUniqueChars(String str){
 		if(str.length() <2) return true;
 		BitSet bitset = new BitSet(256);
-		
+
 		for(int i = 0; i<str.length(); i++){
 			if(bitset.get(str.charAt(i))) return false;
 			bitset.set(str.charAt(i));
@@ -399,32 +399,32 @@ public class P11 {
 		}
 	}
 	public static BinaryTree<Integer> createBinarySearchTree(int [] sortedArr){
-		 if(sortedArr.length == 0) return null;
-		 int middle = sortedArr.length/2;
-		 BinaryTree<Integer> tree = new BinaryTree<>(new BinaryTreeNode<Integer>(sortedArr[middle]));
-		 //calculate left tree
-		 createBinaryTreeWorker(tree.getHead(),sortedArr,0,middle-1,false);
-		 createBinaryTreeWorker(tree.getHead(),sortedArr,middle+1,sortedArr.length-1,true);
-		 return tree;
+		if(sortedArr.length == 0) return null;
+		int middle = sortedArr.length/2;
+		BinaryTree<Integer> tree = new BinaryTree<>(new BinaryTreeNode<Integer>(sortedArr[middle]));
+		//calculate left tree
+		createBinaryTreeWorker(tree.getHead(),sortedArr,0,middle-1,false);
+		createBinaryTreeWorker(tree.getHead(),sortedArr,middle+1,sortedArr.length-1,true);
+		return tree;
 	}
-	
+
 	private static void createBinaryTreeWorker(BinaryTreeNode<Integer> node, int [] arr, int start, int end,boolean isRight){
 		if( start >end) return;
 		int middle = (start + end)/2;
 		if (isRight) node.setRight(new BinaryTreeNode<Integer>(arr[middle]));
 		else node.setLeft(new BinaryTreeNode<Integer>(arr[middle]));
-		
+
 		createBinaryTreeWorker((isRight?node.getRight():node.getLeft()),arr,start,middle-1,false);
 		createBinaryTreeWorker((isRight?node.getRight():node.getLeft()),arr,middle+1,end,true);
 	}
 	public static void partitionList(MyLinkedList<Integer> list, int value) {
 		if (list.getSize() < 1) return;
-		
+
 		LinkedListNode<Integer> current = list.getHead();
 		LinkedListNode<Integer> firstHalf = null;
 		LinkedListNode<Integer> secondHalf = null;
 		LinkedListNode<Integer> aux;
-		
+
 		while(current != null){
 			if (current.getValue() < value){
 				if(firstHalf == null) {
@@ -469,12 +469,12 @@ public class P11 {
 			hanoiWorker(n-1,aux,beg,end);
 		}
 	}
-	
+
 	public static boolean isPermutation(String s1, String s2){
 		if(s1.length() != s2.length() || s1.length() == 0 || s2.length() == 0) return false;
-		
+
 		int [] timesSeen = new int[256];
-		
+
 		for (int i = 0; i < s1.length();i++){
 			timesSeen[s1.charAt(i)]++;
 		}
@@ -484,24 +484,82 @@ public class P11 {
 		}
 		return true;	
 	}
-	public void rotateMatrix(int [][] matrix){
-		
-		for(int i = 0; i < matrix.length/2;i++){
-			for(int j = 0; j < matrix.length/2;j++){
-				
-				
-				
-				
+	public static void rotateMatrix(int [][] matrix){
+
+		for(int layer = 0; layer < matrix.length/2; layer++){
+			//for readability only
+			int first = layer;
+			int last = matrix.length - 1 - layer;
+			for(int i = first; i < last ; i++){
+				int offset = i - first;
+				int aux = matrix[last-offset][first];
+
+				matrix[last-offset][first] = matrix[last][last-offset];
+				matrix[last][last-offset] = matrix[i][last];
+				matrix[i][last] = matrix[first][i];
+				matrix[first][i] = aux;
+
 			}
 		}
-		
+
 	}
-	
-	public void swap2d(int[][]arr, int i0 , int j0, int i1, int j1 ){
+
+	public static void setToZero(int[][] matrix){
+		int n = matrix.length;
+		int m = matrix[0].length;
+		BitSet rowBitSet = new BitSet(n);
+		BitSet columnBitSet = new BitSet(m);
+
+		for(int i = 0; i < n; i ++){
+			for(int j = 0; j< m; j++){
+				if(matrix[i][j] == 0){
+					rowBitSet.set(i);
+					columnBitSet.set(j);
+
+				}
+			}
+		}
+		for(int i = 0; i < n; i ++){
+			for(int j = 0; j< m; j++){
+				if(rowBitSet.get(i) || columnBitSet.get(j)) matrix[i][j] = 0;
+			}
+		}
+	}
+
+
+
+	public static void swap2d(int[][]arr, int i0 , int j0, int i1, int j1 ){
 		int aux = arr[i0][j0];
 		arr[i0][j0] = arr[i1][j1];
 		arr[i1][j1] = aux;
 	}
 	
+	public static String printSquareMatrix(int [][] matrix){
+		return printMatrix(matrix,matrix.length,matrix.length);
+	}
 	
+	public static String printMatrix(int [][] matrix,int n, int m){
+		StringBuffer buffer = new StringBuffer();
+
+		for (int i = 0; i < n;i++){
+			buffer.append("[");
+			for(int j = 0; j <m ; j++){
+				buffer.append(matrix[i][j]).append(" ");
+			}
+			buffer.deleteCharAt(buffer.length()-1).append("]\n");
+		}
+		return buffer.toString();
+	}
+
+	public static boolean isSubstring(String s1, String s2){
+		if(s2.length() > s1.length() || s1.length() ==0 || s2.length() ==0) return false;
+		return s1.contains(s2);
+	}
+	public static boolean isRotation(String s1, String s2){
+		if(s1.length() != s2.length() || s1.length() == 0) return false;
+
+		return isSubstring(s1+s1,s2);
+
+	}
+
 }

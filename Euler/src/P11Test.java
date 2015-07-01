@@ -537,14 +537,66 @@ public class P11Test {
 		int[][] matrix = new int[n][n];
 		
 		for (int i = 0; i < n;i++){
-			String s = "[";
 			for(int j = 0; j <n ; j++){
 				matrix[i][j]= i+j;
-				s = s + (i+j)+ " ";
-			}
-			s += "]";
-			System.out.println(s);
+			}	
 		}
+		String matrixString = 
+				  "[0 1 2 3]\n"
+				+ "[1 2 3 4]\n"
+				+ "[2 3 4 5]\n"
+				+ "[3 4 5 6]\n";
+		
+		assertEquals(P11.printSquareMatrix(matrix),matrixString);
+
+		P11.rotateMatrix(matrix);
+		
+		String rotatedMatrixString = 
+				  "[3 2 1 0]\n"
+				+ "[4 3 2 1]\n"
+				+ "[5 4 3 2]\n"
+				+ "[6 5 4 3]\n";
+		
+		assertEquals(P11.printSquareMatrix(matrix),rotatedMatrixString);
+		
+	}
+	@Test
+	public void isRotationTest(){
+		String s1 = "banana";
+		String s2 = "nanaba";
+		String s3 = "1";
+		String s4 = "nanana";
+		
+		assertTrue(P11.isRotation(s1, s2));
+		assertFalse(P11.isRotation(s1, s3));
+		assertFalse(P11.isRotation(s1, s4));	
+	}
+	
+	@Test
+	public void setToZeroTest(){
+		int n = 3;
+		int m = 4;
+		int [][] matrix = new int [n][m];
+		
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < m; j++){
+				matrix[i][j] = i+j;
+			}
+		}
+		String matrixString = 
+				  "[0 1 2 3]\n"
+				+ "[1 2 3 4]\n"
+				+ "[2 3 4 5]\n";
+
+		assertEquals(P11.printMatrix(matrix, n, m),matrixString);
+		
+		P11.setToZero(matrix);
+
+		String zeroMatrix = 
+				  "[0 0 0 0]\n"
+				+ "[0 2 3 4]\n"
+				+ "[0 3 4 5]\n";
+		assertEquals(P11.printMatrix(matrix, n, m),zeroMatrix);
 	}
 
 }
