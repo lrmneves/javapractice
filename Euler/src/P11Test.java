@@ -376,7 +376,7 @@ public class P11Test {
 		long start = System.nanoTime();
 		int answer = P11.integerDivision(1000000000, 10);
 		long end = System.nanoTime();
-		
+
 
 		assertEquals(1000000000/10,answer);
 	}
@@ -384,14 +384,14 @@ public class P11Test {
 	public void testHeap(){
 		MyHeap minHeap = new MyHeap(10,true);
 		MyHeap maxHeap = new MyHeap(10,false);
-		
+
 		for(int i = 0; i < 10;i++){
 			minHeap.insert(i);
 			maxHeap.insert(i);
 		}
 
 		for(int i = 0; i < 10;i++){
-			
+
 			assertEquals(minHeap.extract(),i);
 		}
 		for(int i = 9; i>=0; i--){
@@ -403,19 +403,19 @@ public class P11Test {
 		String test1 =  "a";
 		String test2 = "total";
 		String test3 = "teeter";
-		
+
 		assertEquals(P11.firstNonRepeated(test1), (Character) 'a');
 		assertEquals(P11.firstNonRepeated(test2), (Character) 'o');
 		assertEquals(P11.firstNonRepeated(test3), (Character) 'r');
 
 	}
-	
+
 	@Test
 	public void removeCharsTest(){
 		String test1 =  "a";
 		String test2 = "total";
 		String test3 = "teeter";
-		
+
 		assertEquals(P11.removeChars(test1,"a"), "");
 		assertEquals(P11.removeChars(test2,"ao"), "ttl");
 		assertEquals(P11.removeChars(test3,"er"), "tt");
@@ -426,7 +426,7 @@ public class P11Test {
 		String test1 = "";
 		String test2 = "abc";
 		String test3 = "abcdertfsa";
-		
+
 		assertTrue(P11.hasUniqueChars(test1));
 		assertTrue(P11.hasUniqueChars(test2));
 		assertFalse(P11.hasUniqueChars(test3));
@@ -440,11 +440,11 @@ public class P11Test {
 		list.add(2);
 		list.add(3);
 		list.add(4);
-		
+
 		P11.removeDuplicates(list);
-		
+
 		Integer [] arr = new Integer[] {1,4,2,3};
-		
+
 		for(int i = 0; i<list.size();i++){
 			assertEquals(arr[i],list.get(i));
 		}
@@ -484,11 +484,11 @@ public class P11Test {
 		list.appendNode(fourth);
 		list.appendNode(fifth);	
 		list.appendNode(sixth);
-		
+
 		P11.partitionList(list,6);
-		
+
 		int[] arr = new int []{4,5,3,10,9,7};
- 		
+
 		assertEquals(6,list.getSize());
 		LinkedListNode<Integer> current = list.getHead();
 		int i = 0;
@@ -496,36 +496,36 @@ public class P11Test {
 			assertEquals(current.getValue(),new Integer(arr[i++]));
 			current = current.getNext();
 		}
-		
+
 	}
 	@Test
 	public void HanoiTowerTest(){
 		Stack<Integer> s1 = new Stack<>();
 		Stack<Integer> s2 = new Stack<>();
 		Stack<Integer> s3 = new Stack<>();
-		
+
 		s1.add(4);
 		s1.add(3);
 		s1.add(2);
 		s1.add(1);
 		s1.add(0);
-		
+
 		P11.hanoiTower(s1, s2, s3);
-		
+
 		assertEquals(s3.size(),5);
-		
+
 		for(int i = 0; i < 5;i++){
 			assertEquals((int) s3.pop(),i);
 		}
 	}
-	
+
 	@Test
 	public void isPermutationTest(){
 		String s1 = "banana";
 		String s2 = "1";
 		String s3 = "nanaba";
 		String s4 = "banany";
-		
+
 		assertFalse(P11.isPermutation(s1,s2));
 		assertTrue(P11.isPermutation(s1, s3));
 		assertFalse(P11.isPermutation(s1, s4));
@@ -533,32 +533,32 @@ public class P11Test {
 	@Test
 	public void rotateMatrixTest(){
 		int n = 4;
-		
+
 		int[][] matrix = new int[n][n];
-		
+
 		for (int i = 0; i < n;i++){
 			for(int j = 0; j <n ; j++){
 				matrix[i][j]= i+j;
 			}	
 		}
 		String matrixString = 
-				  "[0 1 2 3]\n"
-				+ "[1 2 3 4]\n"
-				+ "[2 3 4 5]\n"
-				+ "[3 4 5 6]\n";
-		
+				"[0 1 2 3]\n"
+						+ "[1 2 3 4]\n"
+						+ "[2 3 4 5]\n"
+						+ "[3 4 5 6]\n";
+
 		assertEquals(P11.printSquareMatrix(matrix),matrixString);
 
 		P11.rotateMatrix(matrix);
-		
+
 		String rotatedMatrixString = 
-				  "[3 2 1 0]\n"
-				+ "[4 3 2 1]\n"
-				+ "[5 4 3 2]\n"
-				+ "[6 5 4 3]\n";
-		
+				"[3 2 1 0]\n"
+						+ "[4 3 2 1]\n"
+						+ "[5 4 3 2]\n"
+						+ "[6 5 4 3]\n";
+
 		assertEquals(P11.printSquareMatrix(matrix),rotatedMatrixString);
-		
+
 	}
 	@Test
 	public void isRotationTest(){
@@ -566,36 +566,36 @@ public class P11Test {
 		String s2 = "nanaba";
 		String s3 = "1";
 		String s4 = "nanana";
-		
+
 		assertTrue(P11.isRotation(s1, s2));
 		assertFalse(P11.isRotation(s1, s3));
 		assertFalse(P11.isRotation(s1, s4));	
 	}
-	
+
 	@Test
 	public void setToZeroTest(){
 		int n = 3;
 		int m = 4;
 		int [][] matrix = new int [n][m];
-		
+
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < m; j++){
 				matrix[i][j] = i+j;
 			}
 		}
 		String matrixString = 
-				  "[0 1 2 3]\n"
-				+ "[1 2 3 4]\n"
-				+ "[2 3 4 5]\n";
+				"[0 1 2 3]\n"
+						+ "[1 2 3 4]\n"
+						+ "[2 3 4 5]\n";
 
 		assertEquals(P11.printMatrix(matrix, n, m),matrixString);
-		
+
 		P11.setToZero(matrix);
 
 		String zeroMatrix = 
-				  "[0 0 0 0]\n"
-				+ "[0 2 3 4]\n"
-				+ "[0 3 4 5]\n";
+				"[0 0 0 0]\n"
+						+ "[0 2 3 4]\n"
+						+ "[0 3 4 5]\n";
 		assertEquals(P11.printMatrix(matrix, n, m),zeroMatrix);
 	}
 	@Test
@@ -609,17 +609,17 @@ public class P11Test {
 
 		assertTrue(P11.isListPalindrome(list));
 		LinkedList<Character> list2 = new LinkedList<>();
-		
+
 		list2.add('b');
 		list2.add('a');
 		list2.add('n');
 		list2.add('a');
 		list2.add('n');
 		list2.add('a');
-		
+
 		assertFalse(P11.isListPalindrome(list2));
 	}
-	
+
 	@Test
 	public void sortStackTest(){
 		Stack<Integer> stack = new Stack<>();
@@ -628,12 +628,12 @@ public class P11Test {
 		stack.push(5);
 		stack.push(1);
 		stack.push(6);
-		
+
 		int [] arr = new int[]{7,6,5,2,1};
-		
+
 		P11.sortStack(stack);
 		assertEquals(stack.size(),5);
-		
+
 		for(int i = 0; i < arr.length; i++){
 			assertEquals(arr[i],(int) stack.pop());
 		}
