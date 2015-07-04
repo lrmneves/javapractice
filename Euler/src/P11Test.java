@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -11,6 +12,27 @@ import org.junit.Test;
 
 public class P11Test {
 
+	public static Graph<Integer> createTestGraph(){
+		Graph<Integer> graph = new Graph<>(true);
+		graph.addEdge(1,2);
+		graph.addEdge(1,3);
+		
+		graph.addEdge(2,3);
+		graph.addEdge(2,5);
+
+		graph.addEdge(3,3);
+		
+		graph.addEdge(4,1);
+		graph.addEdge(4,2);
+		graph.addEdge(4,5);
+		
+		graph.addEdge(5,3);
+
+
+		return graph;
+	
+	}
+	
 	@Test
 	public void twoSumTest() {
 		int [] arr = new int []{2,7,11,15};
@@ -636,6 +658,73 @@ public class P11Test {
 
 		for(int i = 0; i < arr.length; i++){
 			assertEquals(arr[i],(int) stack.pop());
+		}
+	}
+	
+	@Test
+	public void LevelLinkedListTest(){
+		int [] arr = new int [] {1,2,3,4,5,6,7};
+		BinaryTree<Integer> tree = P11.createBinarySearchTree(arr);
+		
+		int [] levelOne = new int[] {4};
+		int [] levelTwo = new int[] {2,6};
+		int [] levelThree = new int[] {1,3,5,7};
+		
+		HashMap<Integer,LinkedList<Integer>> map = P11.getLevelLinkedLists(tree);
+		
+		
+			LinkedList<Integer> list = map.get(0);
+			for(int i = 0; i< list.size();i++){
+				assertEquals(levelOne[i],(int)list.get(i));
+			}
+			list = map.get(1);
+			for(int i = 0; i< list.size();i++){
+				assertEquals(levelTwo[i],(int)list.get(i));
+			}
+			list = map.get(2);
+			for(int i = 0; i< list.size();i++){
+				assertEquals(levelThree[i],(int)list.get(i));
+			}
+	}
+	@Test
+	public void isBSTTest(){
+		int [] arr = new int [] {1,2,3,4,5,6,7};
+		BinaryTree<Integer> tree = P11.createBinarySearchTree(arr);
+		assertTrue(P11.isBST(tree));
+		
+		arr = new int [] {1,2,3,7,5,6,4};
+		tree = P11.createBinarySearchTree(arr);
+		assertFalse(P11.isBST(tree));		
+	}
+	
+//	@Test
+//	public void mergeSortTest(){
+//		int [] arr = new int [] {1,6,2,4,5,9,3};
+//		
+//		arr = P11.mergeSort(arr);
+//		
+//		for( int i : arr){
+//			System.out.println(i);
+//		}
+//	}
+	
+	@Test
+	public void graphTest(){
+		Graph<Integer> graph = createTestGraph();
+		int [] dfsRet =  new int [] {5,3,2,1};
+		int i = 0;
+		for(GraphNode<Integer> n : graph.dfs(4)){
+			assertEquals(dfsRet[i],(int) n.getValue());
+			i++;
+		}
+		assertEquals(graph.dfs(3).size(),0);
+		assertEquals((int)graph.dfs(5).getFirst().getValue(),3);
+		
+		int [] bfsRet = new int []{1,2,5,3};
+		i = 0;
+		for(GraphNode<Integer> n : graph.bfs(4)){
+			assertEquals(bfsRet[i],(int) n.getValue());
+			i++;
 		}
 	}
 

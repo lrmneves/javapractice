@@ -630,5 +630,70 @@ public class P11 {
 			stack.push(auxStack.pop());
 		}
 	}
+	public static HashMap<Integer,LinkedList<Integer>> getLevelLinkedLists(BinaryTree<Integer> tree){
+		
+		HashMap<Integer,LinkedList<Integer>> map = new HashMap<>();
+		BinaryTreeNode<Integer> head = tree.getHead();
+		int level = 0;
+		calculateLevelLinkedLists(head,level,map);
+		
+		return map;
+		
+	}
+	private static void calculateLevelLinkedLists(BinaryTreeNode<Integer> node,
+			int level, HashMap<Integer, LinkedList<Integer>> map) {
 
+		if(map.containsKey(level)){
+			map.get(level).add(node.getValue());
+		}
+		else{
+			map.put(level, new LinkedList<Integer>());
+			map.get(level).add(node.getValue());
+		}
+		
+		if(node.getLeft() != null) calculateLevelLinkedLists(node.getLeft(),level + 1, map);
+		
+		if(node.getRight() != null) calculateLevelLinkedLists(node.getRight(), level + 1, map);
+		
+		
+	}
+	
+	public static boolean isBST(BinaryTree<Integer> tree){
+		return isBSTWorker(tree.getHead(),false) > 0? true:false;
+	}
+	private static int isBSTWorker(BinaryTreeNode<Integer> node,boolean isLeft) {
+		if(node.isLeaf()){
+			return node.getValue();
+		}
+		int leftMaxValue;
+		int rightMinValue;
+		if(node.getLeft() != null){
+			leftMaxValue = isBSTWorker(node.getLeft(),true);
+			if(node.getValue() <= leftMaxValue || leftMaxValue == -1) return -1;
+		}
+		else{
+			leftMaxValue = node.getValue();
+		}
+		if(node.getRight() != null){
+			rightMinValue = isBSTWorker(node.getRight(),false);
+			if(node.getValue()>= rightMinValue || rightMinValue == -1) return -1;
+		}
+		else{
+			rightMinValue = node.getValue();
+		}
+		
+		if(isLeft) return rightMinValue;
+		else return leftMaxValue;
+		
+	}
+	
+	
+//	public static int [] mergeSort(int [] arr){
+//		return mergeSortWorker(arr,0,arr.length-1);
+//	}
+
+//	public static  int [] mergeSortWorker(int [] arr, int start, int end){
+//		if(start >= end) return 
+//	}
+//	}
 }
