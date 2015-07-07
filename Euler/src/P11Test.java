@@ -1,8 +1,11 @@
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 
 import utils.*;
@@ -726,6 +729,69 @@ public class P11Test {
 			assertEquals(bfsRet[i],(int) n.getValue());
 			i++;
 		}
+	}
+	@Test
+	public void robotMoveTest(){
+		
+		assertEquals(P11.numberOfPaths(0, 0,1 ,1),P11.robotMove(0, 0, 1, 1));
+		assertEquals(P11.numberOfPaths(0, 0,1 ,2),P11.robotMove(0, 0, 1, 2));
+		assertEquals(P11.numberOfPaths(0, 0,2 ,2),P11.robotMove(0, 0, 2, 2));
+		assertEquals(P11.numberOfPaths(0, 0,3 ,4),P11.robotMove(0,0,3,4));
+
+	}
+	
+	@Test
+	public void magicIndexTest(){
+		int [] arr1 = new int [] {-1,0,2,5,7};
+		int [] arr2 = new int [] {1,2,3,4,5};
+		int [] arr3 = new int [] {-1,0,3,3,5};
+		
+		assertEquals(P11.magicIndex(arr1), 2);
+		assertEquals(P11.magicIndex(arr2), -1); 
+		assertEquals(P11.magicIndex(arr3), 3);
+	}
+	@Test
+	public void subsetTest(){
+		
+		ArrayList<Integer> originalSet = new ArrayList<>();
+		originalSet.add(1);
+		originalSet.add(2);
+
+		String [] answers = new String [] {"","1 ","1 2 ", "2 "};
+		
+		ArrayList<ArrayList<Integer>> subsets = P11.getSubsets(originalSet);
+		int i = 0;
+		for(ArrayList<Integer> set: subsets){
+			String s = "";
+			for(Integer element : set){
+				s += element + " ";
+			}
+			assertEquals(answers[i++], s);
+		}
+	}
+	@Test
+	public void allPermutationTest(){
+		String s1 = "abc";
+		Set<String> set = P11.allPermutation(s1);
+		for(String s: set){
+		System.out.println(s);
+		}
+	}
+	@Test(timeout = 100)
+	public void getChangeTest(){
+		assertEquals(P11.getChange(1),1);
+		assertEquals(P11.getChange(5),2);
+		assertEquals(P11.getChange(10),4);
+		P11.getChange(1000);
+	}
+	@Test
+	public void getLastDigitTest(){
+		assertEquals(7,P11.getLastDigit(7));
+		assertEquals(9,P11.getLastDigit(7*7));
+		assertEquals(3,P11.getLastDigit(7*7*7));
+		assertEquals(1, P11.getLastDigit(7*7*7*7));
+
+
 	}
 
 }

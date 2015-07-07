@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -5,16 +10,222 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 import utils.*;
 
 public class P11 {
 
-	public static void main(String args[]){
+	
+	   
+		static int getLastDigit(int n){
+			int last = n%10;
+			while(last > 9){
+				last = last%10;
+			}
+			return (int)last;
+		}
+		static void addSurrondings(int[][] arr,int i, int j){
+			try{
+				arr[i-1][j] = arr[i-1][j] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i-1][j-1] = arr[i-1][j-1] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i-1][j+1] = arr[i-1][j+1] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i][j-1] = arr[i][j-1] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i][j+1] = arr[i][j+1] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i+1][j+1] = arr[i+1][j+1] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i+1][j] = arr[i+1][j] +1;
+			}catch(Exception e){
+			}
+			try{
+				arr[i+1][j-1] = arr[i+1][j-1] +1;
+			}catch(Exception e){
+			}
+			
+		}
+	    public static void mineSweeper (String[] args) throws IOException {
+	        File file = new File(args[0]);
+	        BufferedReader buffer = new BufferedReader(new FileReader(file));
+	        String line;
+            String [] values;
+            String [] dimensions;
+            StringBuilder builder = new StringBuilder();
+	        while ((line = buffer.readLine()) != null) {
+	            line = line.trim();
+	            values = line.split(";");
+	            builder.setLength(0);
+	            dimensions = values[0].split(",");
+	            int m = Integer.parseInt(dimensions[0]);
+	            int n = Integer.parseInt(dimensions[1]);
 
-	}
+	            int [][] countField = new int [m][n];
+	            for(int k =0 ; k<values[1].length();k++){
+	            	if(values[1].charAt(k) == '*'){
+	            		addSurrondings(countField,k/n,k%n);
+	            	}
+	            }
+	            
+	            for(int i = 0; i < m;i++){
+	            	for(int j = 0; j < n; j++){
+	            		if(values[1].charAt(i*n + j) != '*'){
+	            			builder.append(countField[i][j]);
+	            		}
+	            		else{
+	            			builder.append("*");
+	            		}
+	            	}
+	            }
+	            System.out.println(builder.toString());
+	        }
+	    }
+		
+	    public static void digitStatistics (String[] args) throws IOException {
+	        File file = new File(args[0]);
+	        BufferedReader buffer = new BufferedReader(new FileReader(file));
+	        String line;
+	        String [] arr = new String[10];
+	        String [] values;
+	        int a;
+	        BigInteger n;
+	        StringBuilder builder = new StringBuilder();
+	        
+	        BigInteger ZERO = new BigInteger("0");
+	        BigInteger ONE = new BigInteger("1");
+	        BigInteger TWO = new BigInteger("2");
+
+	        BigInteger FOUR = new BigInteger("4");
+
+	        while ((line = buffer.readLine()) != null) {
+	            line = line.trim();
+	            values = line.split(" ");
+	            builder.setLength(0);
+	            a = Integer.parseInt(values[0].trim());
+	            n = new BigInteger(values[1]);
+	            if(a == 0 || a == 1 || a == 5 || a == 6){
+	            	arr[getLastDigit(a)] = new String(n.toString());
+	            }
+	            else if( a == 4 || a == 9){
+	            	arr[getLastDigit(a)] = new String(n.mod(TWO).compareTo(ZERO) == 0?n.divide(TWO).toString():
+	            		n.divide(TWO).add(ONE).toString());
+	         
+	            	arr[getLastDigit(a*a)] = new String(n.divide(TWO).toString());
+
+	            }
+	            else if (a == 2 || a== 3 || a == 7 || a == 8){
+	            	
+	            	
+	            	arr[a] = new String(n.mod(FOUR).compareTo(ZERO) == 1? n.divide(FOUR).add(ONE).toString():
+	            		n.divide(FOUR).toString());
+	            	arr[getLastDigit(a*a)] = new String(n.mod(FOUR).compareTo(ONE) == 1? n.divide(FOUR).add(ONE).toString():
+	            		n.divide(FOUR).toString());
+	            	arr[getLastDigit(a*a*a)] = new String(n.mod(FOUR).compareTo(TWO) == 1? n.divide(FOUR).add(ONE).toString():
+	            		n.divide(FOUR).toString());
+	            	arr[getLastDigit(a*a*a*a)] = new String(n.divide(FOUR).toString());
+
+	            }
+	            for(int i = 0; i < arr.length;i++){
+	            	builder.append(i).append(": ").append(arr[i] == null?0:arr[i]).append(", ");
+	            }
+	            System.out.println(builder.toString().substring(0,builder.length()-2));
+	            arr = new String[10];
+	        }
+	    }
+	
+	
+	    public static void uniqueElements (String[] args) throws IOException {
+	        File file = new File(args[0]);
+	        BufferedReader buffer = new BufferedReader(new FileReader(file));
+	        String line;
+	        String [] values;
+	        BitSet bitSet;
+	        int last;
+	        String delimiter = ",";
+	        StringBuilder builder = new StringBuilder();
+	        while ((line = buffer.readLine()) != null) {
+	            line = line.trim();
+	            builder.setLength(0);
+	            values = line.split(delimiter);
+	            last = Integer.parseInt(values[values.length-1]);
+	            bitSet = new BitSet(last+1);
+	            for(int i = 0; i<values.length;i++){
+	            	if(!bitSet.get(Integer.parseInt(values[i]))){
+	            		bitSet.set(Integer.parseInt(values[i]));
+	            		builder.append(Integer.parseInt(values[i])).append(delimiter);
+	            	}
+	            	
+	            }
+	         
+	            
+	            System.out.println(builder.toString().substring(0,builder.length()-1));
+	        }
+	    }
+	
+	
+
+	public static void prefixReader (String[] args) throws IOException {
+	        File file = new File(args[0]);
+	        BufferedReader buffer = new BufferedReader(new FileReader(file));
+	        String line;
+	        LinkedList<Double> numberQueue = new LinkedList<>();
+	        Stack<Character> operatorStack = new Stack<>();
+	        
+	        while ((line = buffer.readLine()) != null) {
+	            line = line.trim();
+	            numberQueue.clear();
+	            operatorStack.clear();
+	            for(int i = 0; i< line.length(); i++){
+	            	try{
+	            		numberQueue.add(Double.parseDouble(String.valueOf(line.charAt(i))));
+	            	}catch (Exception e){
+	            		if(line.charAt(i) != ' ') operatorStack.push(line.charAt(i));
+	            	}
+	            }
+	            double value1 = numberQueue.removeFirst();
+	            
+	            double value2 = numberQueue.isEmpty()?0:numberQueue.removeFirst();
+	            char operator;
+	            
+	            while(!operatorStack.isEmpty()){
+	            	operator = operatorStack.pop();
+	            
+	            	switch(operator){
+	            	case '*':
+	            		value1 = value1*value2;
+	            		break;
+	            	case '/':
+	            		value1 = value1/value2;
+	            		break;
+	            	case '+':
+	            		value1 = value1+value2;
+	            		break;
+	            	case '-':
+	            		value1 = value1-value2;
+	            	}
+            		if(!operatorStack.isEmpty()) value2 = numberQueue.removeFirst();
+	            }
+	            System.out.println((int)value1);
+	        }
+	    }
 	//O(n)
 	public static int[] twoSum(int [] arr, int value){
 		if (arr.length<2) return null;
@@ -686,6 +897,129 @@ public class P11 {
 		else return leftMaxValue;
 		
 	}
+	public static int robotMove(int x0, int y0, int x1, int y1){
+		return robotMove(x0,y0,x1,y1,new int[x1+1][y1+1]);
+	}
+	private static int robotMove(int x0, int y0, int x1, int y1, int[][] visitedArray) {
+		if(x0 == x1 && y0 == y1) return 1;
+		
+		int right = 0;
+		int left = 0;
+		if(x0 < x1){
+			right = visitedArray[x0+1][y0] != 0? visitedArray[x0+1][y0]:robotMove(x0+1,y0,x1,y1,visitedArray);
+		}
+		if(y0 < y1){
+			left = visitedArray[x0][y0+1] != 0? visitedArray[x0][y0+1]:robotMove(x0,y0+1,x1,y1,visitedArray);
+		}
+		if(visitedArray[x0][y0] == 0) {
+			visitedArray[x0][y0] = left+right;
+		}
+		return visitedArray[x0][y0];
+	}
+	
+	public static int numberOfPaths(int x0, int y0, int x1, int y1){
+		int xMoves = x1-x0;
+		int yMoves = y1-y0;
+		int [] computedFact = new int[xMoves + yMoves + 1];
+		return factorial(xMoves + yMoves,computedFact)/(factorial(xMoves,computedFact) *factorial(yMoves,computedFact));
+	}
+	
+	public static int factorial(int n,int[]  arr){
+		if (n <= 1) return 1;
+		if(arr[n] != 0) return arr[n];
+		
+		 arr[n] =  n*factorial(n-1,arr);
+		 return arr[n];
+	}
+	public static int magicIndex(int[] arr) {
+		return magicIndex(arr,0,arr.length-1);
+	}
+	private static int magicIndex(int[] arr, int start, int end) {
+		if(start>end) return -1;
+		
+		int index = (end+start)/2;
+		
+		if(arr[index] > index){
+			int left = magicIndex(arr,start,index-1);
+			if (left != -1) return left;
+			return magicIndex(arr,index+1,end);
+				
+		}
+		if(arr[index] < index){
+			int right = magicIndex(arr,index+1,end);
+			if(right != -1) return right;
+			return magicIndex(arr,start,index-1);
+		}
+		
+		return index;
+	}
+	public static ArrayList<ArrayList<Integer>> getSubsets(ArrayList<Integer> originalSet) {
+		ArrayList<ArrayList<Integer>> setOfSets = new ArrayList<>();
+		ArrayList<Integer> set = new ArrayList<>();
+		setOfSets.add(set);
+		getSubsetsWorker(set,originalSet,setOfSets,0);
+		return setOfSets;
+	}
+	private static void getSubsetsWorker(ArrayList<Integer> set,
+			ArrayList<Integer> originalSet, ArrayList<ArrayList<Integer>> setOfSets, int lastStored) {
+		
+		for(int i = lastStored; i < originalSet.size(); i++){
+			ArrayList<Integer> newSet = new ArrayList<>();
+			newSet.addAll(0, set);
+			newSet.add(originalSet.get(i));
+			setOfSets.add(newSet);
+			getSubsetsWorker(newSet,originalSet,setOfSets,i+1);
+		}
+	}
+	public static Set<String> allPermutation(String str) {
+		if(str == null) return null;
+		HashSet<String> set = new HashSet<String>();
+		if(str.equals("")){
+			set.add("");
+			return set;
+		}
+		for(int i = 0; i < str.length(); i++){
+			String permString = removeCharAt(str,i);
+			for(int j = 0; j< permString.length();j++){
+				set.add(insertCharAt(permString,str.charAt(i),j));
+			}
+		}
+		return set;
+	}
+
+	public static String removeCharAt(String str,int index){
+		return str.substring(0,index) + str.substring(index+1);
+	}
+	public static String insertCharAt(String str,char ch, int index){
+		return str.substring(0,index) + ch + str.substring(index);
+	}
+	
+//	public static String printParentesis(int number){
+//		if(number == 1) return "()";
+//		
+//	}
+	
+	public static int getChange(int n){
+		return getChange(n,new int[]{25,10,5,1},0,new int[4][n+1]);
+	}
+	
+	private static int getChange(int n, int[] coins, int index, int[][] seenArr) {
+
+		if(seenArr[index][n] > 0) return seenArr[index][n];
+		
+		if(index>= coins.length-1) return 1;
+		int coin = coins[index];
+		int ways = 0;
+		
+		for(int i = 0; i*coin <= n;i++){
+			int remaining = n - i*coin;
+			ways += getChange(remaining,coins,index+1,seenArr);
+		}
+		seenArr[index][n] = ways;
+		return seenArr[index][n];
+	}
+	
+	
 	
 	
 //	public static int [] mergeSort(int [] arr){
