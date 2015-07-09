@@ -1,15 +1,19 @@
 package utils;
 
-public class BinaryTreeNode<T>{
+import java.util.Comparator;
+
+public class BinaryTreeNode<T extends Comparable<T>>{
 	T value;
 	BinaryTreeNode<T> left;
 	BinaryTreeNode<T> right;
+	int balanceFactor;
 
 
 	public BinaryTreeNode(T value, BinaryTreeNode<T> left, BinaryTreeNode<T> right){
 		this.value = value;
 		this.left = left;
 		this.right = right;
+		balanceFactor = (this.left == null?0:this.left.getHeight()) - (this.right==null?0:this.right.getHeight());
 	}
 	public BinaryTreeNode(T value){
 		this(value,null,null);
@@ -54,6 +58,16 @@ public class BinaryTreeNode<T>{
 			}
 			return Math.max(leftHeight, rightHeight) +1 ;
 		}
+	}
+	public int getBalanceFactor(){
+		return balanceFactor;
+	}
+	public int updateBalanceFactor(){
+		balanceFactor = (left == null?0:left.getHeight()) - (right==null?0:right.getHeight());
+		return balanceFactor;
+	}
+	public int compareTo(BinaryTreeNode<T> node){
+		return this.getValue().compareTo(node.getValue());
 	}
 
 }

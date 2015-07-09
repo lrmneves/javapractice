@@ -1,6 +1,6 @@
 package utils;
 
-public class BinaryTree<T>{
+public class BinaryTree<T extends Comparable<T>>{
 	BinaryTreeNode<T> head;
 	public BinaryTree(BinaryTreeNode<T> head){
 		this.head = head;

@@ -773,9 +773,9 @@ public class P11Test {
 	public void allPermutationTest(){
 		String s1 = "abc";
 		Set<String> set = P11.allPermutation(s1);
-		for(String s: set){
-		System.out.println(s);
-		}
+//		for(String s: set){
+//		System.out.println(s);
+//		}
 	}
 	@Test(timeout = 100)
 	public void getChangeTest(){
@@ -793,5 +793,42 @@ public class P11Test {
 
 
 	}
+	@Test
+	public void printFromBottomTest(){
+//		P11.printFromBottom(new int [] {1,4,2,3,10,4,6});
+	}
+	@Test
+	public void kthLargestTest(){
+		int [] arr = new int [] {2,7,1,3,8};
+		
+		int [] answer = new int[]{8,7,3};
+		
+		arr = P11.kthLargestElements(arr, 3);
+		
+		for(int i = 0; i < arr.length; i++){
+			assertEquals(arr[i],answer[i]);
+		}
+	}
+	@Test
+	public void OtherProductTest(){
+		int [] arr = new int []{1,2,3,4};
+		int [] ret = new int []{24,12,8,6};
+		arr = P11.getOtherProducts(arr);
+		for(int i = 0; i < arr.length; i++){
+			assertEquals(arr[i],ret[i]);
+		}
+	}
 
+	@Test
+	public void bstTest(){
+		BST<Integer> bst = new BST<>(new BinaryTreeNode<Integer>(4));
+		int [] arr = new int [] {1,2,3,5,6,7};
+		for(int i: arr){
+			bst.insertNode(i);
+		}
+		assertTrue(P11.isBST(bst));
+		assertTrue(P11.isBalanced(bst));
+		
+	}
+	
 }
