@@ -545,14 +545,7 @@ public class P11 {
 
 		return maxProfit;
 	}
-	//	public static int bestStock3(int[] arr){
-	//		int maxProfit = 0;
-	//		int lastValue = Integer.MAX_VALUE;
-	//		
-	//		
-	//		
-	//		return maxProfit;
-	//	}
+
 	public static boolean isBalanced(BinaryTree<Integer> tree){
 		return tree.isBalanced();
 	}
@@ -1219,6 +1212,47 @@ public class P11 {
 		}
 		
 		return R;
+	}
+	public static int [] mergeSort(int [] arr){
+		return mergeSort(arr,0,arr.length-1);
+	}
+	public static int[] mergeSort(int[] arr,int start,int end) {
+		if(arr == null) return null;
+		if(arr.length == 1)return arr;
+		if(start == end) return new int[]{arr[start]};
+		
+		int middle = (end + start)/2;
+		
+		int [] left = mergeSort(arr,start,middle);
+		int [] right = mergeSort(arr,middle+1,end);
+		
+		return merge(left,right);
+	}
+
+	private static int [] merge(int [] left, int [] right){
+		if(left == null) return right;
+		if(right == null) return left;
+		
+		int [] mergeArr = new int[left.length + right.length];
+		
+		int leftIndx = 0;
+		int rightIndx = 0;
+		
+		for( int i = 0; i < mergeArr.length;i++){
+			if(leftIndx > left.length -1) mergeArr[i] = right[rightIndx++];
+			else if(rightIndx > right.length -1) mergeArr[i] = left[leftIndx++];
+			else{
+				if(left[leftIndx] < right[rightIndx]){
+					mergeArr[i] = left[leftIndx++];
+				}
+				else{
+					mergeArr[i] = right[rightIndx++];
+				}
+			}
+		}
+		return mergeArr;
+		
+		
 	}
 	
 

@@ -700,16 +700,17 @@ public class P11Test {
 		assertFalse(P11.isBST(tree));		
 	}
 	
-//	@Test
-//	public void mergeSortTest(){
-//		int [] arr = new int [] {1,6,2,4,5,9,3};
-//		
-//		arr = P11.mergeSort(arr);
-//		
-//		for( int i : arr){
-//			System.out.println(i);
-//		}
-//	}
+	@Test
+	public void mergeSortTest(){
+		int [] arr = new int [] {1,6,2,4,5,9,3};
+		int [] ret = new int [] {1,2,3,4,5,6,9};
+		
+		arr = P11.mergeSort(arr);
+		
+		for( int i = 0;i < arr.length;i++){
+			assertEquals(arr[i],ret[i]);
+		}
+	}
 	
 	@Test
 	public void graphTest(){
@@ -773,9 +774,11 @@ public class P11Test {
 	public void allPermutationTest(){
 		String s1 = "abc";
 		Set<String> set = P11.allPermutation(s1);
-//		for(String s: set){
-//		System.out.println(s);
-//		}
+		String [] strs = new String []{"cab","abc","bac","acb"};
+		Object [] setToString = set.toArray();
+		for(int i = 0 ; i<strs.length;i++){
+			assertEquals(strs[i],setToString[i]);
+		}
 	}
 	@Test(timeout = 100)
 	public void getChangeTest(){
@@ -830,5 +833,5 @@ public class P11Test {
 		assertTrue(P11.isBalanced(bst));
 		
 	}
-	
+
 }
