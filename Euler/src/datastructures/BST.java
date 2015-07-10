@@ -1,4 +1,4 @@
-package utils;
+package datastructures;
 
 public class BST <T extends Comparable<T>> extends BinaryTree<T> {
 

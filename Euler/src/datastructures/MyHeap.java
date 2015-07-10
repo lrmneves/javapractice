@@ -1,4 +1,4 @@
-package utils;
+package datastructures;
 
 public class MyHeap {
 	int [] heapArray;

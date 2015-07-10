@@ -1,6 +1,4 @@
-package utils;
-
-import java.util.Comparator;
+package datastructures;
 
 public class BinaryTreeNode<T extends Comparable<T>>{
 	T value;

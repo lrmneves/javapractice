@@ -1,4 +1,4 @@
-package utils;
+package datastructures;
 
 public class BinaryTree<T extends Comparable<T>>{
 	BinaryTreeNode<T> head;
