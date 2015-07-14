@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ ArrayAndStringTest.class, LinkedListTest.class,
-		OtherTest.class, RecursionAndTreeTest.class, SortingTest.class })
+		OtherTest.class, RecursionAndTreeTest.class, SortingTest.class,
+		BitProblemsTest.class})
 public class AllTests {
 
 }
