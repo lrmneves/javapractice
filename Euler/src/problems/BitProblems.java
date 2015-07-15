@@ -1,5 +1,7 @@
 package problems;
 
+import java.util.HashMap;
+
 public class BitProblems {
 
 	public static int clearLastBits(int number, int bits){
@@ -55,6 +57,27 @@ public class BitProblems {
 		 * Instead of flipNumber >>= 1, we would do flipNumber&=(flipNumber -1),
 		 * which would clear the least significant bit
 		 */
+		}
+		return count;
+	}
+	
+	public static int patternCreator(int n, int p, int q){
+		int revPattern = ((1<< q)-1)<<p; 
+		int ret = ~0^((1<<p+q) - 1);
+		
+		for(int i = 0; i < n; i+= p+q){
+			ret |= revPattern;
+
+			revPattern<<=p+q;
+			revPattern |= ((1<<p+q) -1); 
+		}
+		return ~ret;
+	}
+	public static int countOnes(int number){
+		int count = 0;
+		while (number!=0){
+			if((number & 1) == 1) count++;
+			number>>=1;
 		}
 		return count;
 	}

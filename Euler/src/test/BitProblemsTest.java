@@ -60,5 +60,19 @@ public class BitProblemsTest {
 	public void countFlipTest(){
 		assertEquals(BitProblems.countFlipBits(29, 15),2);
 	}
+	@Test
+	public void patternTest(){
+		System.out.println(BitProblems.patternCreator(6, 1, 1));
+	}
+	@Test
+	public void countOnesTest(){
+		assertEquals(BitProblems.countOnes(5),2);
+		assertEquals(BitProblems.countOnes(7),3);
+		assertEquals(BitProblems.countOnes(15),4);
+		assertEquals(BitProblems.countOnes(4),1);
+		
+
+
+	}
 	
 }

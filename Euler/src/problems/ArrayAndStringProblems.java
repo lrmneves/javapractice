@@ -44,7 +44,6 @@ public class ArrayAndStringProblems {
 			head = i+1;
 			tail = arr.length-1;
 	
-	
 			while(head < tail){//O(n)
 				sum = arr[head] + arr[i] + arr[tail];
 				if(sum == value){
