@@ -1,10 +1,12 @@
 package datastructures;
 
+import java.util.Random;
+
 public class MyHeap {
 	int [] heapArray;
 	int lastElement;
 	boolean isMin;// defines if it is a max or a min heap
-	
+
 	private void swapValues(int i, int j){
 		int aux = heapArray[i];
 		heapArray[i] = heapArray[j];
@@ -23,7 +25,7 @@ public class MyHeap {
 	}
 	public void insert(int value){
 		if (isFull()) return;
-		
+
 		int index = ++lastElement;
 		int parentIndex = (index-1)/2;
 		heapArray[index] = value;
@@ -41,16 +43,16 @@ public class MyHeap {
 				parentIndex = (index-1)/2;
 			}	
 		}
-		
+
 	}
 	public int extract(){
 		if(this.isEmpty()) return -1;
-		
+
 		int value = heapArray[0];
 		heapArray[0] = heapArray[lastElement];
 		heapArray[lastElement--] = 0;
 		int index = 0;
-		
+
 		if(isMin){
 			while((2*index +2 <= lastElement) && 
 					(heapArray[index] > heapArray[2*index + 1]||heapArray[index] > heapArray[2*index + 2])){
@@ -89,11 +91,17 @@ public class MyHeap {
 		}
 		return value;
 	}
-	
+	public int sample(){
+		if(!isEmpty()){ 
+			Random random = new Random();
+			return heapArray[random.nextInt(heapArray.length)];
+		}
+		return -1;
+	}
 	public void printHeap(){
 		for(int a: heapArray){
 			System.out.println(a);
 		}
 	}
-	
+
 }

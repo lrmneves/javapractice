@@ -1,7 +1,5 @@
 package problems;
 
-import java.util.HashMap;
-
 public class BitProblems {
 
 	public static int clearLastBits(int number, int bits){
@@ -81,6 +79,33 @@ public class BitProblems {
 		}
 		return count;
 	}
+	public static int countOnesFaster(int number){
+		int count = 0;
+		for(count = 0; count < number; count++){
+			number&=(number-1);
+		}
+		return count;
+	}
+	public static int swapBitsIndex(int number,int i, int j){
+		int iAux =  (1<<i) & number;
+		int jAux = (1<<j) &number;
+		int iMask = ~(1<<i);
+		int jMask = ~(1<<j);
+		number &= iMask;
+		number &= jMask;
+		if(i - j > 0){
+			number |= (iAux>>(i-j));
+			number |= (jAux<<(i-j));
+		}else{
+			number |= (jAux>>(j-i));
+			number |= (iAux<<(j-i));
+		}
+		return number;
+	}
+	public static boolean isPowerOfTwo(int x) {
+		return (x!= 0) && (x&(x-1)) == 0;
+//        return (x&(-x)) == x; //pega o bit menos significativo
+    }
 
 }
 

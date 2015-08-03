@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 
 public class ArrayAndStringProblems {
@@ -141,7 +142,7 @@ public class ArrayAndStringProblems {
 		return ret;
 	}
 
-	public static void printFromBottom(int [] arr){
+	public static String printFromBottom(int [] arr){
 	
 		int max = ArrayAndStringProblems.getMax(arr);
 		StringBuilder[] builderArr = new StringBuilder[max];
@@ -155,9 +156,11 @@ public class ArrayAndStringProblems {
 			}
 	
 		}
+		StringBuilder lastBuilder = new StringBuilder();
 		for(StringBuilder builder : builderArr){
-			System.out.println(builder.toString());
+			lastBuilder.append(builder.toString());
 		}
+		return lastBuilder.toString();
 	}
 
 	public static int getMax(int[] arr){
@@ -428,5 +431,173 @@ public class ArrayAndStringProblems {
 		if(s2.length() > s1.length() || s1.length() ==0 || s2.length() ==0) return false;
 		return s1.contains(s2);
 	}
+	public static int getDepth(int [] arr, int k){
+		if(arr == null || arr.length == 0 || k < 0 || k > arr.length ) return 0;
+		int count = 1;
+		while(arr[k] > 0 && arr[k] < arr.length){
+			k = arr[k];
+			count++;
+			if(count > arr.length) return Integer.MAX_VALUE;
+		}
+		return count;
+	}
+	
+	public static String reverseWords(String str){
+		if(str == null || str.length() <2) return str;
+		StringBuilder builder = new StringBuilder();
+		int lastNonCharIndex = str.length();
+		for(int i = str.length()-1 ; i >= 0; i--){
+			
+			if(str.charAt(i) == ' '){
+				for(int j = i+1; j < lastNonCharIndex ; j++){
+					builder.append(str.charAt(j));
+				}
+				builder.append(str.charAt(i));
+				lastNonCharIndex = i;
+			}
+		}
+		if(lastNonCharIndex > 0){
+			for(int j = 0; j < lastNonCharIndex; j++){
+				builder.append(str.charAt(j));
+			}
+		}
+		return builder.toString();
+		
+	}
+	public static void rotateArray(int [] arr, int k){
+		if (arr == null || arr.length<2) return;
+		
+		int lastValue = arr[0];
+		int nextValue;
+		int index = 0;
+		
+		for(int i = 0; i < arr.length ; i++ ){
+			index = (index + k)%(arr.length);
+			nextValue = arr[index];
+			arr[index] = lastValue;
+			lastValue = nextValue;
+			if(index == 0) {
+				index++;
+				lastValue = arr[index];
+			}
+			
+		}
+	}
+	public static void reverseArray(int [] arr,int start,int end){
 
+		while (end > start){
+			swap(arr,end--,start++);
+		}
+	}
+	public static int [] nextPermutation(int[] arr){
+		if(arr == null || arr.length <2) return arr;
+		int startIndex = arr.length-2;
+		while(startIndex>=0 && arr[startIndex] >= arr[startIndex+1]) startIndex--;
+		if(startIndex == -1) return new int [0];
+		
+		int swapIndex = startIndex;
+		for(int i = startIndex+1; i < arr.length; i++){
+			if(arr[i] > arr[startIndex]) swapIndex = i;
+			else break;
+		}
+		int [] nextPerm = arr.clone();
+		swap(nextPerm,startIndex,swapIndex);
+		
+		reverseArray(nextPerm,startIndex+1, nextPerm.length-1);
+		
+		return nextPerm;
+		
+		
+	}
+	public static int stringToInt(String s){
+		HashMap<Character,Integer> charToIntMap = new HashMap<>();
+		charToIntMap.put('0', 0);
+		charToIntMap.put('1', 1);
+		charToIntMap.put('2', 2);
+		charToIntMap.put('3', 3);
+		charToIntMap.put('4', 4);
+		charToIntMap.put('5', 5);
+		charToIntMap.put('6', 6);
+		charToIntMap.put('7', 7);
+		charToIntMap.put('8', 8);
+		charToIntMap.put('9', 9);
+
+		int unitCount = 1;
+		int ret = 0;
+		
+		for(int i = s.length() -1; i>=0;i--){
+			ret += charToIntMap.get(s.charAt(i))*unitCount;
+			unitCount*=10;
+		}
+		
+		return ret;
+		}
+	
+	public static String intToString( int number){
+		StringBuilder builder = new StringBuilder();
+		while(number > 0){
+			builder.append(number%10);
+			number/=10;
+		}
+		return builder.reverse().toString();
+	}
+	 public static int minimumTotal(List<List<Integer>> triangle) {
+	        if(triangle.size() < 1) return 0;
+	        int steps = triangle.size() -1;
+	        for(int i = 0; i < steps;i++){
+	            for(int j = 0; j < triangle.get(i).size();j++){
+	                if(j == 0) {
+	                    triangle.get(i+1).set(j,triangle.get(i+1).get(j) + triangle.get(i).get(j));
+	                    if(i == 0) triangle.get(i+1).set(j+1,triangle.get(i+1).get(j+1) + triangle.get(i).get(j));
+	                    else{
+		                    triangle.get(i+1).set(j+1,Math.min(triangle.get(i+1).get(j+1) + triangle.get(i).get(j),triangle.get(i+1).get(j+1) + triangle.get(i).get(j+1)));
+	                    }
+	                }
+	                else if ( j == triangle.get(i).size() - 1) {
+	                    triangle.get(i+1).set(j+1,triangle.get(i+1).get(j+1) + triangle.get(i).get(j));
+	                }else{
+	                    triangle.get(i+1).set(j+1,Math.min(triangle.get(i+1).get(j+1) + triangle.get(i).get(j),triangle.get(i+1).get(j+1) + triangle.get(i).get(j+1)));
+	                }
+	            }
+	        }
+	        int minSum = Integer.MAX_VALUE;
+	        
+	        for(int k = 0; k < triangle.get(steps).size();k++){
+	            if(triangle.get(steps).get(k) < minSum) 
+	            	minSum = triangle.get(steps).get(k);
+	        }
+	        return minSum;
+	    }
+	 public static boolean isPalindrome(int x){
+		 int div = 1;
+		 while(x/Math.pow(10,div) >= 10) div++;
+		 
+		 
+		 return true;
+	 }
+	 public static int longestConsecutive(int[] nums) {
+		 BitSet set;
+		 int max = Integer.MIN_VALUE;
+		 int min = Integer.MAX_VALUE;;
+		 for(int i = 0; i < nums.length;i++){
+			 if(nums[i] > max) max = nums[i];
+			 if(nums[i] < min) min = nums[i];
+		 }
+		 set = new BitSet(max-min);
+		 for(int i = 0; i < nums.length;i++){
+			set.set(nums[i] - min);
+		 }
+		 int count = 0;
+		 int consecutive = 0;
+		 for(int i = 0; i < max-min; i++){
+			 if(set.get(i)) consecutive++;
+			 else{
+				 if(count < consecutive) count = consecutive;
+				 consecutive = 0;
+			 }
+		 }
+		 
+		 return count;
+	 
+	 }
 }

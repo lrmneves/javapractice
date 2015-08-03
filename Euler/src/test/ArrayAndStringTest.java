@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -114,9 +115,8 @@ public class ArrayAndStringTest {
 		ArrayAndStringProblems.arrangeArray(arr);
 		int [] answer = new int [] {0,0,0,0,1,1,1};
 
-		for(int i = 0; i<arr.length;i++){
-			assertEquals(arr[i],answer[i]);
-		}
+		assertArrayEquals(arr,answer);
+
 	}
 
 	@Test
@@ -124,10 +124,8 @@ public class ArrayAndStringTest {
 		int [] arr = new int[]{0,1,1,2,0,1,2,3,5,0,0};
 		ArrayAndStringProblems.threeBuckets(arr,1);
 		int [] answer = new int [] {0,0,0,0,1,1,1,3,5,2,2};
+		assertArrayEquals(arr,answer);
 
-		for(int i = 0; i<arr.length;i++){
-			assertEquals(arr[i],answer[i]);
-		}
 	}
 	@Test
 	public void integerDivisionTest(){
@@ -180,7 +178,7 @@ public class ArrayAndStringTest {
 			}	
 		}
 		String matrixString = 
-				"[0 1 2 3]\n"
+						  "[0 1 2 3]\n"
 						+ "[1 2 3 4]\n"
 						+ "[2 3 4 5]\n"
 						+ "[3 4 5 6]\n";
@@ -233,7 +231,7 @@ public class ArrayAndStringTest {
 			}
 		}
 		String matrixString = 
-				"[0 1 2 3]\n"
+						  "[0 1 2 3]\n"
 						+ "[1 2 3 4]\n"
 						+ "[2 3 4 5]\n";
 
@@ -242,14 +240,24 @@ public class ArrayAndStringTest {
 		ArrayAndStringProblems.setToZero(matrix);
 
 		String zeroMatrix = 
-				"[0 0 0 0]\n"
+						  "[0 0 0 0]\n"
 						+ "[0 2 3 4]\n"
 						+ "[0 3 4 5]\n";
 		assertEquals(ArrayAndStringProblems.printMatrix(matrix, n, m),zeroMatrix);
 	}
 	@Test
 	public void printFromBottomTest(){
-		ArrayAndStringProblems.printFromBottom(new int [] {1,4,2,3,10,4,6});
+		String ans =  "    #  "
+					+ "    #  "
+					+ "    #  "
+					+ "    #  "
+					+ "    # #"
+					+ "    # #"
+					+ " #  ###"
+					+ " # ####"
+					+ " ######"
+					+ "#######";
+		assertEquals(ArrayAndStringProblems.printFromBottom(new int [] {1,4,2,3,10,4,6}),ans);
 	}
 	@Test
 	public void kthLargestTest(){
@@ -259,17 +267,110 @@ public class ArrayAndStringTest {
 
 		arr = ArrayAndStringProblems.kthLargestElements(arr, 3);
 
-		for(int i = 0; i < arr.length; i++){
-			assertEquals(arr[i],answer[i]);
-		}
+		assertArrayEquals(arr,answer);
+
 	}
 	@Test
 	public void OtherProductTest(){
 		int [] arr = new int []{1,2,3,4};
 		int [] ret = new int []{24,12,8,6};
 		arr = ArrayAndStringProblems.getOtherProducts(arr);
-		for(int i = 0; i < arr.length; i++){
-			assertEquals(arr[i],ret[i]);
-		}
+		
+		assertArrayEquals(arr,ret);
+		
+	}
+	@Test
+	public void getDepthTest(){
+		int [] arr = new int [] {1,1,3,2,8,-1,4};
+		
+		int k1 = 1;
+		int k2 = 0;
+		int k3 = 2;
+		int k4 = 6;
+		
+		assertEquals(ArrayAndStringProblems.getDepth(arr,k1),Integer.MAX_VALUE);
+		assertEquals(ArrayAndStringProblems.getDepth(arr,k2),Integer.MAX_VALUE);
+		assertEquals(ArrayAndStringProblems.getDepth(arr,k3),Integer.MAX_VALUE);
+		assertEquals(ArrayAndStringProblems.getDepth(arr,k4),2);
+	}
+	
+	@Test
+	public void reverseWordsTest(){
+		
+		String str1 = "a b";
+		String str2 = " ba na na ";
+		String str3 = "abc ";
+		String str4 = " ";
+		
+		assertEquals(ArrayAndStringProblems.reverseWords(str1), "b a");
+		assertEquals(ArrayAndStringProblems.reverseWords(str2), " na na ba ");
+		assertEquals(ArrayAndStringProblems.reverseWords(str3), " abc");
+		assertEquals(ArrayAndStringProblems.reverseWords(str4), " ");
+
+	}
+	@Test
+	public void rotateArrayTest(){
+		int [] arr = new int [] {0,1,2,3,4};
+		int [] ans = new int [] {3,4,0,1,2};
+		ArrayAndStringProblems.rotateArray(arr, 2);
+		
+		assertArrayEquals(arr,ans);
+
+	}
+	
+	@Test
+	public void nextPermutationTest(){
+		int [] perm1 = new int[]{0};
+		int [] perm2 = new int[] {1,0,2,4,3};
+		int [] perm3 = new int[] {0,4,3,2,1};
+		int [] perm4 = new int[] {4,3,2,1};
+		
+		assertArrayEquals(ArrayAndStringProblems.nextPermutation(perm1),new int[]{0});
+		assertArrayEquals(ArrayAndStringProblems.nextPermutation(perm2),new int[]{1,0,3,2,4});
+		assertArrayEquals(ArrayAndStringProblems.nextPermutation(perm3),new int[]{1,0,2,3,4});
+		assertArrayEquals(ArrayAndStringProblems.nextPermutation(perm4),new int[0]);
+	}
+	
+	@Test
+	public void stringToIntTest(){
+		String s1 = "123";
+		String s2 = "1001";
+		String s3 = "1250";
+		
+		int integer1 = 123;
+		int integer2 = 1001;
+		int integer3 = 1250;
+		
+		assertEquals(integer1,ArrayAndStringProblems.stringToInt(s1));
+		assertEquals(integer2,ArrayAndStringProblems.stringToInt(s2));
+		assertEquals(integer3,ArrayAndStringProblems.stringToInt(s3));
+		
+		assertEquals(ArrayAndStringProblems.intToString(integer1),s1);
+		assertEquals(ArrayAndStringProblems.intToString(integer2),s2);
+		assertEquals(ArrayAndStringProblems.intToString(integer3),s3);
+	}
+	@Test
+	public void minSumTest(){
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
+		//[[2],[3,4],[6,5,7],[4,1,8,3]]
+		List<Integer> level1 = new ArrayList<Integer>();
+		level1.add(2);
+		List<Integer> level2 = new ArrayList<Integer>();
+		level2.add(3); level2.add(4);
+		List<Integer> level3 = new ArrayList<Integer>();
+		level3.add(6);level3.add(5);level3.add(7);
+		List<Integer> level4 = new ArrayList<Integer>();
+		level4.add(4);level4.add(1);level4.add(8);level4.add(3);
+		
+		list.add(level1); list.add(level2);list.add(level3);list.add(level4);
+		
+		assertEquals(ArrayAndStringProblems.minimumTotal(list),11);
+
+	}
+	@Test
+	public void consecutiveTest(){
+		int [] arr = new int []{100,4,200,1,3,2};
+		assertEquals(ArrayAndStringProblems.longestConsecutive(arr),4);
+
 	}
 }

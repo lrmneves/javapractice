@@ -1,5 +1,6 @@
 package problems;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -262,8 +263,10 @@ public class RecursionAndTreeProblems {
 			getSubsetsWorker(newSet,originalSet,setOfSets,i+1);
 		}
 	}
+	
 	public static Set<String> allPermutation(String str) {
 		if(str == null) return null;
+		
 		HashSet<String> set = new HashSet<String>();
 		if(str.equals("")){
 			set.add("");
@@ -305,7 +308,6 @@ public class RecursionAndTreeProblems {
 		seenArr[index][n] = ways;
 		return seenArr[index][n];
 	}
-
-
+	
 
 }

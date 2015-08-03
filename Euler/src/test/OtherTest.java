@@ -10,7 +10,9 @@ import datastructures.BST;
 import datastructures.BinaryTreeNode;
 import datastructures.Graph;
 import datastructures.GraphNode;
+import datastructures.LRUCache;
 import datastructures.MyHeap;
+import datastructures.Trie;
 
 public class OtherTest {
 
@@ -82,6 +84,7 @@ public class OtherTest {
 			minHeap.insert(i);
 			maxHeap.insert(i);
 		}
+		System.out.println(minHeap.sample());
 
 		for(int i = 0; i < 10;i++){
 
@@ -90,5 +93,42 @@ public class OtherTest {
 		for(int i = 9; i>=0; i--){
 			assertEquals(maxHeap.extract(),i);
 		}
+	}
+	@Test
+	public void testLRUCache(){
+		LRUCache cache = new LRUCache(5);
+		
+		assertEquals(cache.get(1), -1);
+		
+		cache.set(1, 1);
+		assertEquals(cache.get(1), 1);
+
+		cache.set(2, 2);
+		cache.set(3, 3);
+		cache.set(4, 4);
+		cache.set(5, 5);
+		for(int i = 1; i <= 5;i++){
+			assertEquals(cache.get(i), i);
+		}
+		cache.set(5, 10);
+		assertEquals(cache.get(5), 10);
+		cache.set(5, 5);
+		cache.set(6, 6);
+		for(int i = 2; i <= 6;i++){
+			assertEquals(cache.get(i), i);
+		}
+		assertEquals(cache.get(1), -1);
+
+	}
+	@Test
+	public void testTrie(){
+		 Trie trie = new Trie();
+		 trie.insert("somestring");
+		 assertFalse(trie.search("key"));
+		 assertTrue(trie.search("somestring"));
+		 assertTrue(trie.startsWith("somes"));
+		 assertFalse(trie.startsWith("somestrsng"));
+		 assertFalse(trie.search(" "));
+
 	}
 }

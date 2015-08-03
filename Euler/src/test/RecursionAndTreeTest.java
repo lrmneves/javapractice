@@ -237,9 +237,8 @@ public class RecursionAndTreeTest {
 		Set<String> set = RecursionAndTreeProblems.allPermutation(s1);
 		String [] strs = new String []{"cab","abc","bac","acb"};
 		Object [] setToString = set.toArray();
-		for(int i = 0 ; i<strs.length;i++){
-			assertEquals(strs[i],setToString[i]);
-		}
+		assertArrayEquals(strs,setToString);
+
 	}
 	@Test(timeout = 100)
 	public void getChangeTest(){
