@@ -1,9 +1,11 @@
 package problems;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
@@ -308,6 +310,79 @@ public class RecursionAndTreeProblems {
 		seenArr[index][n] = ways;
 		return seenArr[index][n];
 	}
+	public static ArrayList<Integer[]> calculateQueens(int gridSize){
+		ArrayList<Integer[]> result = new ArrayList<Integer[]>();
+		calculateQueens(gridSize,0, new Integer [gridSize],result);	
+		return result;
+		
+	}
+
+	private static void calculateQueens(int gridSize, int row,
+			Integer[] columns, ArrayList<Integer[]> result) {
+		
+		if(row == gridSize){
+			result.add((Integer[])columns.clone());
+		}else{
+			for(int col = 0; col < gridSize; col++){
+				if(checkValid(row,col,columns)){
+					columns[row] = col;
+					calculateQueens(gridSize,row+1,columns,result);
+				}
+			}
+		}
+	}
+
+	private static boolean checkValid(int row1, int col1, Integer[] columns) {
+		
+		for(int row2 = 0; row2 < row1;row2++){
+			int col2 = columns[row2];
+			if(col1 == col2) return false;
+			
+			int colDistance = Math.abs(col2 - col1);
+			
+			int rowDistance = row1 - row2;
+			
+			if (colDistance == rowDistance) return false;
+			
+		}
+		
+		return true;
+	}
+	
+	
+//	public static List<int[]> getSkyline(int [][] buildings){
+//		ArrayList<SkylineNode> nodeList = new ArrayList<>();
+//		for(int [] building : buildings){
+//			nodeList.add(new SkylineNode(building[0],building[1],building[2]));
+//		}
+//		Collections.sort(nodeList);
+//		SkylineNode head = nodeList.get(0);
+//		SkylineNode current = head;
+//		SkylineNode newNode;
+//		boolean stored;
+//		for(int i = 1; i < nodeList.size();i++){
+//			newNode = nodeList.get(i);
+//			stored = false;
+//			while(!stored){
+//				if(newNode.getX0() > current.getX1()){
+//					if(current.getRight() == null){
+//						current.setRight(newNode);
+//						stored = true;
+//					}else{
+//						current = current.getRight();
+//					}
+//				}else if(newNode.getX1() < current.getX0()){
+//					if(current.getLeft() == null){
+//						current.setLeft(newNode);
+//						stored = true;
+//					}else{
+//						current = current.getLeft();
+//					}
+//				}else if(newNode.getX1() > current.getX1())
+//			}
+//		}
+//		return new ArrayList<int[]>();
+//	}
 	
 
 }

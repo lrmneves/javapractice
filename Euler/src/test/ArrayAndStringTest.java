@@ -369,8 +369,34 @@ public class ArrayAndStringTest {
 	}
 	@Test
 	public void consecutiveTest(){
-		int [] arr = new int []{100,4,200,1,3,2};
-		assertEquals(ArrayAndStringProblems.longestConsecutive(arr),4);
+		int [] arr = new int []{2147483646,-2147483647,0,1,2,3,4,2147483644,-2147483645,2147483645};
+		assertEquals(ArrayAndStringProblems.longestConsecutive(arr),5);
+
+	}
+	@Test
+	public void maxSetTest(){
+		ArrayList<Integer> list = new ArrayList<>();
+		list.add(756898537);
+		list.add(-1303455736);
+		list.add(1424268980);
+		list = ArrayAndStringProblems.maxset(list);
+		assertEquals(list.size(),1) ;
+
+	}
+	@Test
+	public void lenOfDistinctTest(){
+		String s = "ccaabbb";
+		
+		assertEquals(ArrayAndStringProblems.lengthOfLongestSubstringTwoDistinct(s),5);
+	}
+	@Test
+	public void binarySearchTest(){
+		int [] nums = new int []{3,5,8,10,14};
+		assertEquals(ArrayAndStringProblems.binarySearch(nums, 3),0);
+		assertEquals(ArrayAndStringProblems.binarySearch(nums, 10),3);
+		assertEquals(ArrayAndStringProblems.binarySearch(nums, 0),-1);
+		int [] nums2 = new int []{3,5,8,10,14,0, 1,2};
+//		assertEquals(ArrayAndStringProblems.binarySearch(nums2, 3),0);
 
 	}
 }

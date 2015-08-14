@@ -248,4 +248,18 @@ public class RecursionAndTreeTest {
 		RecursionAndTreeProblems.getChange(1000);
 	}
 
+	@Test
+	public void calculateQueensTest(){
+		System.out.println(RecursionAndTreeProblems.calculateQueens(8).size());
+		
+	}
+//	@Test
+//	public void skylineTest(){
+//		int[][] buildings = new int [][] {{2, 9 ,10}, 
+//										  {3, 7 ,15}, 
+//										  {5, 12 ,12}, 
+//										  {15, 20 ,10}, 
+//										  {19, 24, 8}}; 
+//		RecursionAndTreeProblems.getSkyline(buildings);
+//	}
 }

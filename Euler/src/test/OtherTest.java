@@ -97,9 +97,9 @@ public class OtherTest {
 	@Test
 	public void testLRUCache(){
 		LRUCache cache = new LRUCache(5);
-		
+
 		assertEquals(cache.get(1), -1);
-		
+
 		cache.set(1, 1);
 		assertEquals(cache.get(1), 1);
 
@@ -122,13 +122,14 @@ public class OtherTest {
 	}
 	@Test
 	public void testTrie(){
-		 Trie trie = new Trie();
-		 trie.insert("somestring");
-		 assertFalse(trie.search("key"));
-		 assertTrue(trie.search("somestring"));
-		 assertTrue(trie.startsWith("somes"));
-		 assertFalse(trie.startsWith("somestrsng"));
-		 assertFalse(trie.search(" "));
+
+		Trie trie = new Trie();
+		trie.insert("somestring");
+		assertFalse(trie.search("key"));
+		assertTrue(trie.search("somestring"));
+		assertTrue(trie.startsWith("somes"));
+		assertFalse(trie.startsWith("somestrsng"));
+		assertFalse(trie.search(" "));
 
 	}
 }
